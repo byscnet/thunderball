@@ -1,0 +1,54 @@
+<?= $this->layoutHelper()->getHeadline('Neues Projekt anlegen', array('btnSave' => 'Neues Projekt anlegen')) ?>
+
+<script>
+$(function() {
+$('#start_date').datepicker({ dateFormat: "dd.mm.yy" });
+$('#end_date').datepicker({ dateFormat: "dd.mm.yy" });
+$('#planed_end_date').datepicker({ dateFormat: "dd.mm.yy" });
+$('#booking_blocked_till').datepicker({ dateFormat: "dd.mm.yy" });
+$('#garantee_till').datepicker({ dateFormat: "dd.mm.yy" });
+$("#colour").colorpicker();
+
+$( "#btnSave" ).button({icons: {primary: "ui-icon-disk"}, text: true}); 
+
+$('#btnSave').click(function(){$('#newProjectForm').submit();});
+});
+</script>
+
+<form method="post" id="newProjectForm">
+<div style="padding: 10px">
+	<table width="900">
+		<tr>
+			<td valign="top">
+			<?= $this->form->name ?> 
+			<?= $this->form->parent ?> 
+			<?= $this->form->description ?>
+			<?= $this->form->notice ?>
+			</td>
+			<td valign="top">
+			<?= $this->form->status ?>
+			<?= $this->form->customer ?>
+			<?= $this->form->category ?>
+			<?= $this->form->risk ?>
+			<?= $this->form->colour ?>
+			</td>
+			<td valign="top">
+			<?= $this->form->start_date ?>
+			<?= $this->form->end_date ?>
+			<?= $this->form->planed_end_date ?>
+			<?= $this->form->booking_blocked_till ?>
+			<?= $this->form->garantee_till ?>
+			</td>
+		</tr>
+	</table>
+	<?= $this->layoutHelper()->getNotOptionalInfo() ?>
+	</div>
+</form>
+
+
+
+
+
+
+
+

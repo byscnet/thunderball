@@ -1,0 +1,105 @@
+<script>
+
+$(document).ready(function(){
+	oTable = $('#memberlist').dataTable({
+		"bJQueryUI": true,
+		"bPaginate": false,
+		"bProcessing": true,
+		"sDom": '<"H"lr>t<"F">',
+		"bServerSide": true,
+		"bStateSave": true,
+		"sAjaxSource": baseUrl + "/project-ajax/members/projectId/" + $('#projectId').val(),
+		"aoColumns" : [null, null, null, null, {"bSortable": false}],
+		"fnDrawCallback": function () {  
+			$( ".btnEdit" ).button({icons: {primary: "ui-icon-wrench"}, text: false}); 
+			$( ".btnDelete" ).button({icons: {primary: "ui-icon-trash"}, text: false});
+			},
+		"oLanguage": {
+			"sLengthMenu": "_MENU_ pro Seite anzeigen",
+			"sZeroRecords": "Keine Rollenträger gefunden",
+			"sInfo": "Zeige _START_ bis _END_ von insgesammt _TOTAL_ Rollenträger",
+			"sInfoEmpty": "Es werden keine Rollenträger angezeigt",
+			"sInfoFiltered": "(gefiltert von insgesammt _MAX_ Rollenträger)",
+			"sSearch": "Suche:"}
+	});
+
+	$( "#dialog-form" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        buttons: {
+            "Hinzufügen": function() {
+                var params = { 
+                        userId: $('#memberToAdd').val(),
+                        roleId: $('#roleToAdd').val(),
+                        projectId: $('#projectId').val(),
+                        mode: 'add'
+                };
+
+                post('project-ajax', 'manage-member', params, function(){oTable.fnReloadAjax();});
+                $( this ).dialog( "close" );
+            },
+            'Abbrechen': function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+	
+	$( "#btnAddMember" ).button().click(function() {
+        $( "#dialog-form" ).dialog( "open" );
+    });
+
+});
+
+function editItem(itemId)
+{
+	window.location = baseUrl + "/user/edit/id/" + itemId;
+}
+
+function deleteItem(itemId)
+{
+	if (confirm('Wollen Sie diesen Rollenträger wirklich aus dem Projekt entfernen?')) {
+		var params = { 
+                memberId: itemId,
+                projectId: $('#projectId').val(),
+                mode: 'remove'
+        };
+
+        post('project-ajax', 'manage-member', params, function(){oTable.fnReloadAjax();});
+	}
+}
+
+
+</script>
+
+<div id="dialog-form" title="Rollenträger hinzufügen">
+	<form>
+		<fieldset>
+			<label for="name">Benutzer:</label>
+			<?= $this->projectHelper()->getUserDropBox('memberToAdd') ?>
+			<label for="email">Rolle:</label>
+			<?= $this->projectHelper()->getRoleDropBox('roleToAdd') ?>
+		</fieldset>
+	</form>
+</div>
+
+<table id="memberlist" cellpadding="0" cellspacing="0" border="0"
+	class="display" style="width: 100%">
+	<thead>
+		<tr>
+			<th>Rolle</th>
+			<th>Person</th>
+			<th>Stundensatz</th>
+			<th>Seit</th>
+			<th width="150">Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="5" class="dataTables_empty">Loading data from server</td>
+		</tr>
+	</tbody>
+</table>
+
+<input type="hidden" id="projectId" value="<?= $this->project->id ?>">

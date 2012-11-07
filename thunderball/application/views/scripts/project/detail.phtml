@@ -1,0 +1,67 @@
+<?= $this->layoutHelper()->getHeadline('Projectdetails', array('btnBack' => 'Zurück')) ?>
+
+<script>
+$(function() {
+$( "#accName" ).accordion({ collapsible: true });
+$( "#accStructure" ).accordion({ collapsible: true, autoHeight: false });
+$( "#accMember" ).accordion({ collapsible: true, autoHeight: false });
+
+$( "#btnEditProject" ).button({icons: {primary: "ui-icon-wrench"}, text: true}).click(function(){
+	window.location = baseUrl + "/project/edit/id/" + $('#btnEditProject').attr('ref-data');
+});
+
+$( "#btnAddMember" ).button({icons: {primary: "ui-icon-plus"}, text: true}).click(function(){
+	//window.location = baseUrl + "/project/edit/id/" + $('#btnEditProject').attr('ref-data');
+});
+
+$( "#btnAddStructure" ).button({icons: {primary: "ui-icon-plus"}, text: true}).click(function(){
+	//window.location = baseUrl + "/project/edit/id/" + $('#btnEditProject').attr('ref-data');
+});
+
+$( "#btnBack" ).button({icons: {primary: "ui-icon-triangle-1-w"}, text: true}).click(function(){
+	window.location = baseUrl + "/project/list";
+});
+
+});
+
+
+</script>
+
+<div id="accName">
+	<h3>
+	<?= $this->project->name ?>
+	</h3>
+	<div>
+		<p>
+		<?= $this->partial('project/_project-detail.phtml', array('project' => $this->project));?>
+		</p>
+		<p>
+			<button id="btnEditProject" ref-data="<?= $this->project->id?>">Bearbeiten</button>
+	
+	</div>
+</div>
+
+<div id="accStructure">
+	<h3>Projectstruktur</h3>
+	<div>
+		<p><button id="btnAddStructure" ref-data="<?= $this->project->id?>">Struktur hinzufügen</button>
+		</p>
+		<p>
+		<?= $this->partial('project/_structure.phtml', array('project' => $this->project));?>
+		</p>
+	</div>
+</div>
+
+<div id="accMember">
+	<h3>Rollenträger</h3>
+	<div>
+		<p>
+			<button id="btnAddMember" ref-data="<?= $this->project->id?>">Hinzufügen</button>
+		
+		
+		<p>
+		<?= $this->partial('project/_members.phtml', array('project' => $this->project, 'memberList' => $this->memberList));?>
+		</p>
+	</div>
+</div>
+

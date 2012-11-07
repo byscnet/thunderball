@@ -1,0 +1,44 @@
+<?= $this->layoutHelper()->getHeadline('Benutzer bearbeiten', 
+array('btnCancel' => 'Abbrechen', 'btnSave' => 'Änderungen speichern')) ?>
+
+<script>
+$(function() {
+$( "#btnSave" ).button({icons: {primary: "ui-icon-disk"}, text: true}); 
+$( "#btnCancel" ).button({icons: {primary: "ui-icon-close"}, text: true});
+$( "#btnReset" ).button({icons: {primary: "ui-icon-refresh"}, text: true});
+
+$('#btnSave').click(function(){$('#editUserForm').submit();});
+$('#btnCancel').click(function(){window.location = baseUrl + "/user/";});
+$('#btnReset').click(resetPasswordFunction);
+});
+
+resetPasswordFunction = function() {
+	post('user-ajax', 'reset', {'id': $('#userId').val() }, function(){});
+	return false;
+};
+
+</script>
+
+<form method="post" id="editUserForm">
+	<input type="hidden" id="userId" value="<?= $this->userId ?>">
+	<table width="900">
+		<tr>
+			<td valign="top"><?= $this->form->salutation ?> <?= $this->form->firstname ?>
+			<?= $this->form->lastname ?> <?= $this->form->email ?>
+			<br /><br /><br /><br />
+			<button id="btnReset">Passwort zurücksetzen</button>
+			</td>
+			<td><?= $this->form->hourly_rate ?> <?= $this->form->hours_of_work_per_day ?>
+			<?= $this->form->notice ?>
+			</td>
+		</tr>
+	</table>
+</form>
+
+
+
+
+
+
+
+

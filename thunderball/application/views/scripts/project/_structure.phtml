@@ -1,0 +1,59 @@
+<script type="text/javascript">
+<!--
+
+$(document).ready(function(){
+$( "#new-structure-form" ).dialog({
+    autoOpen: false,
+    height: 250,
+    width: 350,
+    modal: true,
+    buttons: {
+        "Hinzufügen": function() {
+            var params = { 
+                    name: $('#sName').val(),
+                    hours: $('#sHours').val(),
+                    projectId: $('#projectId').val(),
+                    mode: 'add'
+            };
+
+            post('project-ajax', 'manage-package', params, function(){updateStructurePartFunction();});
+            $( this ).dialog( "close" );
+        },
+        'Abbrechen': function() {
+            $( this ).dialog( "close" );
+        }
+    }
+});
+
+updateStructurePartFunction = function (){
+post('project-ajax', 'get-structure', {projectId: $('#projectId').val()}, function(data){
+	$('#structure').html(data);
+});
+};
+
+updateStructurePartFunction();
+
+});
+
+$( "#btnAddStructure" ).button().click(function() {
+    $( "#new-structure-form" ).dialog( "open" );
+});
+//-->
+</script>
+
+
+<div id="new-structure-form" title="Neue Struktur hinzufügen">
+	<form>
+		<fieldset>
+			<label for="name">Bezeichnung:</label>
+			<input type="text" id="sName" size="40">
+			
+			<label for="email">Veranschlagte Stunden:</label>
+			<input type="text" id="sHours" size="10">
+		</fieldset>
+	</form>
+</div>
+
+<div id="structure"></div>
+
+<input type="hidden" id="projectId" value="<?= $this->project->id ?>">

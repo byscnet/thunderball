@@ -1,0 +1,34 @@
+<table border="0" width="100%">
+<tr>
+<td class="header">Startdatum:</td>
+<td><?= $this->project->start_date->format('d.m.Y') ?></td>
+<td><b>Beschreibung</b></td>
+</tr>
+<tr>
+<td class="header">Soll-Enddatum:</td>
+<td><?= $this->project->planed_end_date->format('d.m.Y') ?></td>
+<td rowspan="2" valign="top"><?= $this->project->description?></td>
+</tr>
+<tr>
+<td class="header">Ist-Enddatum:</td>
+<td><?= $this->project->end_date->format('d.m.Y') ?></td>
+</tr>
+<tr>
+<td class="header">Hauptprojekt:</td>
+<td><?= ($this->project->parent != null) ? ($this->project->parent->name) : ('') ?></td>
+<td><b>Bemerkung</b></td>
+</tr>
+<tr>
+<td class="header">Kunde:</td>
+<td><?= $this->project->customer->name ?></td>
+<td rowspan="3" valign="top"><i><?= $this->project->notice?></i></td>
+</tr>
+<tr>
+<td class="header">Kategorie:</td>
+<td><?= ($this->project->category != null) ? ($this->project->category->name) : ('') ?></td>
+</tr>
+<tr>
+<td class="header">Status:</td>
+<td><?= $this->project->status->name ?></td>
+</tr>
+</table>

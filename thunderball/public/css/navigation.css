@@ -1,0 +1,93 @@
+
+#loginLink {
+	float: right;
+	padding: 10px;
+	color: #fff;
+	font-weight: bold;
+}
+
+#navbar {
+    background-image: url('../img/header_bg.png');
+    color: #FF0000;
+    display: inline-block;
+    width: 100%;
+}
+ 
+#navbar ul {
+    margin: 0; 
+    padding: 0;
+    float: left;
+}
+ 
+#navbar ul li {
+    display: inline;
+    list-style-type: none;
+}
+ 
+#navbar ul li a{
+    float: left; 
+    text-decoration: none;
+    background-image: url('../img/header_bg.png');
+    padding: 10.5px 13px;
+    color: #fff;
+}
+ 
+#navbar ul li a:visited {
+    color: #fff;
+}
+ 
+#navbar ul li a:hover{
+    color: #64ADDE;
+    background-color:#eee;   
+}
+ 
+#navbar .navigation > .active > a {
+	color: #428BBC;
+    background-image: url('../img/header_bg.png');
+}
+
+#navbar ul li a:active {
+	color: #428BBC;
+}
+
+
+#subnavbar {
+    color: #ff0000;
+}
+ 
+#subnavbar ul {
+    margin: 0; 
+    padding: 0;
+    float: left;
+}
+
+#subnavbar ul li {
+    display: inline;
+    list-style-type: none;
+}
+
+#subnavbar ul li a{
+    float: left; 
+    text-decoration: none;
+    background-color: #D3DDE8;
+    padding: 10.5px 13px;
+    color: #000;
+}
+
+#subnavbar ul li a:visited {
+    color: #000;
+}
+ 
+#subnavbar ul li a:hover{
+    color: #000;
+    background-color:#eee;
+}
+
+#subnavbar .navigation > .active > a {
+	color: #fff;
+    background-color:#428BBC;
+}
+
+#subnavbar ul li a:active {
+	background-color: #fff;
+}

@@ -1,0 +1,117 @@
+body{ 
+	font: 12px "Trebuchet MS", sans-serif; 
+	background-color: #F2F2F2;
+}
+
+a{
+	color: #787878;	
+}
+
+table{ 
+	font: 12px "Trebuchet MS", sans-serif; 
+}
+
+label{
+	display: block;
+	padding-top: 10px;
+}
+
+dt{
+	width: 100%;
+}
+
+button {
+   font-size: .9em !important;
+}
+
+.content_block{
+	float: left;
+	padding-right: 40px;
+	width: 40%;
+}
+
+.content {
+	padding: 10px;
+}
+	
+#wrapper {
+	background-color: #fff;	
+	height: auto !important;
+	min-height: 100%;
+	width: 1024px;
+	margin: 0 auto;
+	padding-bottom: 20px;
+}
+
+#container {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#footer {
+	background-color: #F2F2F2;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	width: 1024px;
+	text-align: right;
+	padding-top: 25px;
+}
+
+#dialog_link {
+	padding: .4em 1em .4em 20px;
+	text-decoration: none;
+	position: relative;
+}
+
+#dialog_link span.ui-icon {
+	margin: 0 5px 0 0;
+	position: absolute;
+	left: .2em;
+	top: 50%;
+	margin-top: -8px;
+}
+
+ul#icons {
+	margin: 0; 
+	padding: 0;
+}
+
+ul#icons li {
+	margin: 2px; 
+	position: relative; 
+	padding: 4px 0; 
+	cursor: pointer; 
+	float: left;  
+	list-style: none;
+}
+			
+ul#icons span.ui-icon {
+	float: left; 
+	margin: 0 4px;
+}
+
+#byscnet_logo {
+	background: url("../logo.png") no-repeat;
+	height: 37px;
+	width: 180px;
+}
+
+td.header {
+	width: 200px;
+	font-weight: bold;
+}
+	
+	
+.structure-header {
+	font-weight: bold;
+}
+
+.structure-info {
+	font-size: .8em;
+}
+
+.structure-info-block {
+	padding-left: 25px;
+	display: block;
+}

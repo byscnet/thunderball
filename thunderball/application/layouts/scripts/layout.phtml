@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “http://www.w3.org/TR/html4/strict.dtd”>
+<html>
+<head>
+<title>Thunderball Projektmanagement</title>
+
+<?php
+
+$script = 'var baseUrl = "' . $this->baseUrl() . '";';
+echo $this->headScript()->appendScript($script);
+
+echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/stylesheet.css');
+echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/navigation.css');
+
+echo $this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css');
+
+echo '<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>';
+echo '<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>';
+echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/main.js"></script>';
+
+// datatables
+echo $this->headLink()->appendStylesheet($this->baseUrl() . '/datatables/css/demo_table_jui.css');
+echo '<script type="text/javascript" src="' . $this->baseUrl() . '/datatables/js/jquery.dataTables.js"></script>';
+
+// colorpicker
+echo $this->headLink()->appendStylesheet($this->baseUrl() . '/colorpicker/jquery.colorpicker.css');
+echo '<script type="text/javascript" src="' . $this->baseUrl() . '/colorpicker/jquery.colorpicker.js"></script>';
+
+
+/*
+if ($this->jQuery()->isEnabled())
+{
+	echo '<link type="text/css" href="' . $this->baseUrl() . '/js/jquery-ui-1.8.14.custom/css/ui-lightness/jquery-ui-1.8.14.custom.css" rel="Stylesheet" />';
+	echo '<link type="text/css" href="' . $this->baseUrl() . '/js/DataTables/css/demo_page.css" rel="Stylesheet" />';
+	echo '<link type="text/css" href="' . $this->baseUrl() . '/js/DataTables/css/demo_table_jui.css" rel="Stylesheet" />';
+	echo '<link type="text/css" href="' . $this->baseUrl() . '/js/DataTables/css/demo_table.css" rel="Stylesheet" />';
+	echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/jquery-ui-1.8.14.custom/js/jquery-1.5.1.min.js"></script>';
+	echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/jquery-ui-1.8.14.custom/js/jquery-ui-1.8.14.custom.min.js"></script>';
+	echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/jquery-ui-1.8.9.custom/plugins/jquery-validation-1.8.0/jquery.validate.js"></script>';
+	echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/DataTables/js/jquery.dataTables.min.js"></script>';
+	echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/jquery.tools.min.js"></script>';
+}
+*/
+?>
+</head>
+<body>
+
+	<div id="wrapper">
+		<div id="container">
+
+			<div style="text-align: right">
+				
+				<a href="">Hilfe</a>
+			<?php
+			/*
+			if ($this->accountHelper()->userIsLoggedIn())
+			{
+				echo '<div style="float: right;">';
+				echo '<form method="post" action="' . $this->url(array('controller'=>'account', 'action' => 'logout'), 'default', true) . '">';
+				echo 'Hallo&nbsp;' . $this->accountHelper()->getUserFullName() . '&nbsp;<div style="float:right; margin-top: -1px;">
+					<input type="submit" value="Logout"></div>';
+
+				echo '</form>';
+				echo '</div>';
+			}
+			else {
+				echo '<form method="post" action="' . $this->url(array('controller'=>'account', 'action' => 'index'), 'default', true) . '">';
+					
+				echo '<div style="float: right">';
+				echo 'E-Mail: <input type="text" name="email_address">&nbsp; ';
+				echo 'Passwort: <input type="password" name="password"><br />';
+				echo '<div style="margin-top: 7px; height: 20px;">';
+				echo '<div style="float: left; font-size: 11px; margin-left: 200px;"><input type="checkbox" name="rememberMe">&nbsp;Angemeldet bleiben</div>';
+				echo '<div style="float: right;"><input type="submit" value="Login"></div><br />';
+				echo '</div>';
+				echo '<div style="float: right; margin-top: 5px; font-size: 11px;"><a href="' . $this->baseUrl() . '/account/password-forgotten">Passwort vergessen?</a></div></div>';
+
+				echo '</form>';
+				echo $this->message;
+			}
+			*/
+			?>
+
+			</div>
+
+			<div style="padding-bottom: 60px">
+				<div id="byscnet_logo"></div>
+				<div style="text-align: right">
+					<h1>Thunderball Projektmanagement</h1>
+				</div>
+				<div id="navbar">
+				<?= $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 0,)); ?>
+				<span id="loginLink">
+				Login
+				</span>
+				</div>
+				<div id="subnavbar">
+				<?= $this->navigation()->menu()->renderMenu(null, array('minDepth' => 1, 'maxDepth' => 1, 'onlyActiveBranch' => true, 'renderParents' => false)); ?>
+				</div>
+			</div>
+
+
+
+			<div style="background-color: #fafafa; padding-bottom: 20px;">
+			<?php echo $this->layout()->content; ?>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="footer">
+		Copyright &copy;
+		<?=date('Y');?>
+		<a href="http://www.byscnet.de/" target="_new"> byscnet.de - OpenSource Solutions</a>
+	</div>
+</body>
+</html>

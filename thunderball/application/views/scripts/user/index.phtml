@@ -1,0 +1,64 @@
+<?= $this->layoutHelper()->getHeadline('Benutzerverwaltung', array()) ?>
+
+<script>
+
+$(document).ready(function(){
+	oTable = $('#userlist').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"bProcessing": true,
+		"sDom": '<"H"lfr>t<"F"ip>',
+		"bServerSide": true,
+		"bStateSave": true,
+		"sAjaxSource": baseUrl + "/user-ajax/list",
+		"aoColumns" : [null, null, null, null, {"bSortable": false}],
+		"fnDrawCallback": function () {  
+			$( ".btnEdit" ).button({icons: {primary: "ui-icon-wrench"}, text: false}); 
+			$( ".btnDelete" ).button({icons: {primary: "ui-icon-trash"}, text: false}); 
+			$( ".btnDetail" ).button({icons: {primary: "ui-icon-document"}, text: false}); 
+			},
+		"oLanguage": {
+			"sLengthMenu": "_MENU_ pro Seite anzeigen",
+			"sZeroRecords": "Keine Benutzer gefunden",
+			"sInfo": "Zeige _START_ bis _END_ von insgesammt _TOTAL_ Benutzer",
+			"sInfoEmpty": "Es werden keine Benutzer angezeigt",
+			"sInfoFiltered": "(gefiltert von insgesammt _MAX_ Benutzer)",
+			"sSearch": "Suche:"}
+	});
+});
+
+function editItem(itemId)
+{
+	window.location = baseUrl + "/user/edit/id/" + itemId;
+}
+
+function deleteItem(itemId)
+{
+	window.location = baseUrl + "/user/delete/id/" + itemId;
+}
+
+function showItem(itemId)
+{
+	window.location = baseUrl + "/user/show/id/" + itemId;
+}
+
+</script>
+
+
+<table id="userlist" cellpadding="0" cellspacing="0" border="0"
+	class="display" style="width: 100%">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Stundensatz</th>
+			<th>Arbeitstag</th>
+			<th width="150">Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="3" class="dataTables_empty">Loading data from server</td>
+		</tr>
+	</tbody>
+</table>
