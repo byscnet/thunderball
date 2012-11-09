@@ -1,4 +1,4 @@
-<?= $this->layoutHelper()->getHeadline('Benutzerverwaltung', array()) ?>
+<?= $this->layoutHelper()->getHeadline('Benutzerverwaltung', array('btnNew' => 'Neuen Benutzer anlegen')) ?>
 
 <script>
 
@@ -24,6 +24,10 @@ $(document).ready(function(){
 			"sInfoEmpty": "Es werden keine Benutzer angezeigt",
 			"sInfoFiltered": "(gefiltert von insgesammt _MAX_ Benutzer)",
 			"sSearch": "Suche:"}
+	});
+
+	$('#btnNew').button({icons: {primary: "ui-icon-plus"}, text: true}).click(function(){
+		window.location = baseUrl + "/user/new";
 	});
 });
 

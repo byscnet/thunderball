@@ -13,7 +13,7 @@ class Thunderball_Service_Project extends Thunderball_Service_Base
 
 	public function getTotalCount()
 	{
-		$count = $this->_em->createQuery('SELECT count(u.id) AS num FROM Thunderball_Model_Project u');
+		$count = $this->_em->createQuery('SELECT count(p.id) AS num FROM Thunderball_Model_Project p');
 		return $count->getSingleScalarResult();
 	}
 	

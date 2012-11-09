@@ -101,7 +101,10 @@ td.header {
 	width: 200px;
 	font-weight: bold;
 }
-	
+
+button#btnCancel {
+	color: #888;
+}
 	
 .structure-header {
 	font-weight: bold;
@@ -115,3 +118,5 @@ td.header {
 	padding-left: 25px;
 	display: block;
 }
+
+

@@ -33,7 +33,7 @@ class UserAjaxController extends Zend_Controller_Action
 		$mailer->addTo($user->email);
 		$mailer->addPlaceholder('password', $newPassword);
 		$mailer->send();
-		
+		die(json_encode($newPassword));
 		die(json_encode($user->email));
 	}
 

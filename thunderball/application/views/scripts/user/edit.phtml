@@ -19,23 +19,24 @@ resetPasswordFunction = function() {
 
 </script>
 
+<div class="content">
 <form method="post" id="editUserForm">
 	<input type="hidden" id="userId" value="<?= $this->userId ?>">
 	<table width="900">
 		<tr>
-			<td valign="top"><?= $this->form->salutation ?> <?= $this->form->firstname ?>
+			<td valign="top"><?= $this->form->role ?><?= $this->form->title ?><?= $this->form->salutation ?> <?= $this->form->firstname ?>
 			<?= $this->form->lastname ?> <?= $this->form->email ?>
 			<br /><br /><br /><br />
 			<button id="btnReset">Passwort zurücksetzen</button>
 			</td>
-			<td><?= $this->form->hourly_rate ?> <?= $this->form->hours_of_work_per_day ?>
+			<td valign="top"><?= $this->form->hourly_rate ?> <?= $this->form->hours_of_work_per_day ?>
 			<?= $this->form->notice ?>
 			</td>
 		</tr>
 	</table>
 </form>
 
-
+</div>
 
 
 

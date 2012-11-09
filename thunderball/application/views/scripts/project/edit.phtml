@@ -1,4 +1,4 @@
-<?= $this->layoutHelper()->getHeadline('Projekt bearbeiten', array('btnCancel' => 'Abbrechen', 'btnSave' => 'Änderungen speichern')) ?>
+<?= $this->layoutHelper()->getHeadline('Projekt bearbeiten', array('btnCancel' => 'Abbrechen', 'btnDetail' => 'Arbeitspakete', 'btnSave' => 'Änderungen speichern')) ?>
 
 <script>
 $(function() {
@@ -12,38 +12,29 @@ $("#colour").colorpicker();
 $( "#btnSave" ).button({icons: {primary: "ui-icon-disk"}, text: true}); 
 $('#btnSave').click(function(){$('#editProjectForm').submit();});
 $('#btnCancel').button({icons: {primary: "ui-icon-close"}, text: true}).click(function(){history.back();});
+$('#btnDetail').button({icons: {primary: "ui-icon-document"}, text: true}).click(function(){window.location = baseUrl + '/project/detail/id/' + $('#projectId').val()});
 });
 </script>
 
 <form method="post" id="editProjectForm">
-<div style="padding: 10px">
-	<table width="900">
-		<tr>
-			<td valign="top">
-			<?= $this->form->name ?> 
-			<?= $this->form->parent ?> 
-			<?= $this->form->description ?>
-			<?= $this->form->notice ?>
-			</td>
-			<td valign="top">
-			<?= $this->form->status ?>
-			<?= $this->form->customer ?>
-			<?= $this->form->category ?>
-			<?= $this->form->risk ?>
-			<?= $this->form->colour ?>
-			</td>
-			<td valign="top">
-			<?= $this->form->start_date ?>
-			<?= $this->form->end_date ?>
-			<?= $this->form->planed_end_date ?>
-			<?= $this->form->booking_blocked_till ?>
-			<?= $this->form->garantee_till ?>
-			</td>
-		</tr>
-	</table>
-<?= $this->layoutHelper()->getNotOptionalInfo() ?>
-</div>
-	
+	<div style="padding: 10px">
+		<table width="900">
+			<tr>
+				<td valign="top"><?= $this->form->name ?> <?= $this->form->parent ?>
+				<?= $this->form->description ?> <?= $this->form->notice ?>
+				</td>
+				<td valign="top"><?= $this->form->status ?> <?= $this->form->customer ?>
+				<?= $this->form->category ?> <?= $this->form->risk ?> <?= $this->form->colour ?>
+				</td>
+				<td valign="top"><?= $this->form->start_date ?> <?= $this->form->end_date ?>
+				<?= $this->form->planed_end_date ?> <?= $this->form->booking_blocked_till ?>
+				<?= $this->form->garantee_till ?>
+				</td>
+			</tr>
+		</table>
+		<?= $this->layoutHelper()->getNotOptionalInfo() ?>
+	</div>
+	<input type="hidden" id="projectId" value="<?= $this->projectId ?>">
 </form>
 
 

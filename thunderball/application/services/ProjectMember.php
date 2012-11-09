@@ -13,6 +13,22 @@ class Thunderball_Service_ProjectMember extends Thunderball_Service_Base
 		return $memberList;
 	}
 
+	public function getByUserId($userId)
+	{
+		$dql = "SELECT m FROM Thunderball_Model_ProjectMember m JOIN m.project p WHERE m.user = :userId AND p.status != :statusId";
+		$memberList = $this->_em->createQuery($dql)
+		->setParameter('userId', $userId)
+		->setParameter('statusId', 3) // status: abgeschlossen
+		->getResult();
+
+		$projectList = array();
+		foreach ($memberList as $member) {
+			$projectList[] = $member->project;
+		}
+		
+		return $projectList;
+	}
+
 	public function search($params)
 	{
 		$aColumns = array('d.user', 'd.role', 'd.project', );

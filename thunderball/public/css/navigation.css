@@ -1,9 +1,38 @@
 
 #loginLink {
-	float: right;
-	padding: 10px;
+	
+	
 	color: #fff;
 	font-weight: bold;
+}
+
+#login-button {
+	color: #fff;
+	text-decoration: none;
+	float: right;
+	padding: 10px;
+}
+
+#login-button:hover {
+	color: #64ADDE;	
+}
+
+#logged-in-user {
+	color: #fff;
+	text-decoration: none;
+	float: right;
+	padding: 10px;
+}
+
+#logout-button {
+	color: #fff;
+	text-decoration: none;
+	float: right;
+	padding: 10px;
+}
+
+#logout-button:hover {
+	color: #64ADDE;	
 }
 
 #navbar {

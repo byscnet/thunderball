@@ -16,7 +16,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		));
 
 		//$autoloader->addResourceType('serviceImpl', 'services/base/', 'Service_Base');
-		//$autoloader->addResourceType('common', 'common/', 'Common');
+		$autoloader->addResourceType('common', 'common/', 'Common');
 
 		return $autoloader;
 	}
@@ -67,16 +67,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		return $em;
 	}
 	
-	/*
+	
 	protected function _initAuth()
 	{
 		$this->bootstrap('frontController');
 		$auth = Zend_Auth::getInstance();
-		$acl = new Wendy_Auth_Acl();
-		$this->getResource('frontController')->registerPlugin(new Wendy_Auth_AccessControl($auth, $acl))->setParam('auth', $auth);
+		$acl = new Thunderball_Auth_Acl();
+		$this->getResource('frontController')->registerPlugin(new Thunderball_Auth_AccessControl($auth, $acl))->setParam('auth', $auth);
 		Zend_Registry::set('Zend_Acl', $acl);
 	}
-	*/
 
 	protected function _initNavigation()
 	{
@@ -88,16 +87,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$container = new Zend_Navigation($config);
 
 		Zend_Registry::set('Zend_Navigation', $container);
-		/*
+		
 		$role = 'guest';
-		if (Zend_Auth::getInstance()->hasIdentity())
-		$role = Zend_Auth::getInstance()->getIdentity()->role;
+		if (Zend_Auth::getInstance()->hasIdentity()) {
+			$role = Zend_Auth::getInstance()->getIdentity()->roleId;
+		}
 
 		$view->navigation()->setAcl(Zend_Registry::get('Zend_Acl'));
 		$view->navigation()->setRole($role);
 		$view->navigation()->setContainer($container);
-*/
-		//$view->navigation($container)->setAcl(Zend_Registry::get('Zend_Acl'));
 	}
 
 	protected function _initDoctype()

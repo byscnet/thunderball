@@ -57,7 +57,7 @@ class Thunderball_Model_User extends \Thunderball_Model_User implements \Doctrin
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'salutation', 'title', 'firstname', 'lastname', 'email', 'password', 'notice', 'hourly_rate', 'hours_of_work_per_day');
+        return array('__isInitialized__', 'id', 'salutation', 'title', 'firstname', 'lastname', 'email', 'password', 'notice', 'hourly_rate', 'hours_of_work_per_day', 'role');
     }
 
     public function __clone()

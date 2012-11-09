@@ -87,10 +87,20 @@ class Thunderball_Form_Project extends Zend_Form
 							'rows'		=> '8',
 							'decorators' => $this->decorator
 		));
-
-		$this->addElement(
-		$this->getSelectBox('customer', new Thunderball_Service_Customer(), 'Kunde:', true, 'name'));
 	
+		
+		$customerService = new Thunderball_Service_Customer();
+		$all = $customerService->fetchAll();
+		$element = new Zend_Form_Element_Select('customer');
+		$element->setLabel('Kunde:');
+		$element->setRequired(true);
+		$element->setDecorators($this->decorator);
+		$element->addMultiOption('0', 'Bitte wählen');
+		foreach ($all as $entity) {
+			$element->addMultiOption($entity->id, $entity->company->name . ' - ' . $entity->name);
+		}
+		$this->addElement($element);
+		
 		$this->addElement(
 		$this->getSelectBox('parent', new Thunderball_Service_Project(), 'Hauptprojekt:', false, 'name'));
 		

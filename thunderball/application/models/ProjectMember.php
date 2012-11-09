@@ -27,7 +27,7 @@ class Thunderball_Model_ProjectMember
     protected $user;
     
     /**
-     * @ManyToOne(targetEntity="Thunderball_Model_Role")
+     * @ManyToOne(targetEntity="Thunderball_Model_ProjectRole")
      * Rolle
      */
     protected $role;

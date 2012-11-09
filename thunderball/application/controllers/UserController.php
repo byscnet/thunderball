@@ -2,27 +2,72 @@
 
 class UserController extends Zend_Controller_Action
 {
-private $userService;
-    public function init()
-    {
-        $this->userService = new Thunderball_Service_User();
-    }
+	private $userService;
+	private $roleService;
 
-    public function indexAction()
-    {
-        
-    }
-    
-    public function editAction()
-    {
-    	if (!$this->_hasParam('id')) {
+	public function init()
+	{
+		$this->userService = new Thunderball_Service_User();
+		$this->roleService = new Thunderball_Service_Role();
+	}
+
+	public function indexAction()
+	{
+
+	}
+
+	public function showAction()
+	{
+		if (!$this->_hasParam('id')) {
+			return $this->redirect('user/index');
+		}
+
+		$user = $this->userService->getById($this->_getParam('id'));
+		
+		$this->view->user = $user;
+		$this->view->headline = $this->userService->getCompleteName($user);
+	}
+	
+	public function newAction()
+	{
+		$form = new Thunderball_Form_User();
+
+		if ($this->getRequest()->isPost())
+		{
+			if (!$form->isValid($_POST)) {
+				// Fehlgeschlagene Prüfung; Form wieder anzeigen
+				$this->view->form = $form;
+				return $this->render('new');
+			}
+
+			$values = $this->getRequest()->getParams();
+			$newUser = new Thunderball_Model_User();
+			$newPassword = $this->userService->generatePassword();
+			$newUser->password = $this->userService->getPasswordHash($newPassword, $values['email']);
+				
+			$user = $this->storeUser($newUser, $values);
+				
+			$mailer = new Thunderball_Mailer_Mail(Thunderball_Mailer_Mail::TYPE_ERROR);
+			$mailer->addTo($user->email);
+			$mailer->addPlaceholder('password', $newPassword);
+			$mailer->send();
+			
+			return $this->redirect('user/index');
+		}
+
+		$this->view->form = $form;
+	}
+
+	public function editAction()
+	{
+		if (!$this->_hasParam('id')) {
 			return $this->redirect('user/index');
 		}
 
 		$form = new Thunderball_Form_User();
 
 		$user = $this->userService->getById($this->_getParam('id'));
-		
+
 		if ($this->getRequest()->isPost())
 		{
 			if (!$form->isValid($_POST)) {
@@ -43,13 +88,15 @@ private $userService;
 		'hourly_rate' => $user->hourly_rate,
 		'hours_of_work_per_day' => $user->hours_of_work_per_day,
 		'salutation' => $user->salutation,
+		'role' => $user->role->id,
+		'title' => $user->title,
 		));
 
 		$this->view->form = $form;
 		$this->view->userId = $user->id;
-    }
-    
-private function storeUser($user, $values)
+	}
+
+	private function storeUser($user, $values)
 	{
 		$user->firstname = $values['firstname'];
 		$user->lastname = $values['lastname'];
@@ -58,9 +105,13 @@ private function storeUser($user, $values)
 		$user->hourly_rate = $values['hourly_rate'];
 		$user->hours_of_work_per_day = $values['hours_of_work_per_day'];
 		$user->salutation = $values['salutation'];
+		$user->role = $this->roleService->getById($values['role']);
+		$user->title = $values['title'];
 
 		// user speichern
 		$this->userService->store($user);
+		
+		return $user;
 	}
 }
 

@@ -2,6 +2,8 @@
 class Thunderball_Service_User extends Thunderball_Service_Base
 {
 	protected $domain = 'Thunderball_Model_User';
+	const NOT_FOUND = 1;
+	const WRONG_PW = 2;
 
 	public function getCompleteName($user)
 	{
@@ -11,10 +13,10 @@ class Thunderball_Service_User extends Thunderball_Service_Base
 		$text[] = $user->title;
 		$text[] = $user->firstname;
 		$text[] = $user->lastname;
-		
+
 		return join(' ', $text);
 	}
-	
+
 	public function search($params)
 	{
 		$aColumns = array('d.firstname', 'd.lastname', );
@@ -34,9 +36,22 @@ class Thunderball_Service_User extends Thunderball_Service_Base
 		try {
 			$registry = Zend_Registry::getInstance();
 			$dql = "SELECT u FROM Thunderball_Model_User u WHERE u.email = ?1";
-			$user = $registry->entityManager->createQuery($dql)
+			$userEntity = $registry->entityManager->createQuery($dql)
 			->setParameter(1, $username)
 			->getSingleResult();
+				
+			$user = null;
+			
+			if ($userEntity != null) {
+				$user = new Thunderball_Common_User();
+				$user->id = $userEntity->id;
+				$user->firstname = $userEntity->firstname;
+				$user->lastname = $userEntity->lastname;
+				$user->email = $userEntity->email;
+				$user->role = $userEntity->role->name;
+				$user->salutation = $userEntity->salutation;
+				$user->roleId = 'r' . $userEntity->role->id;
+			}
 		}
 		catch (Exception $e)
 		{
@@ -45,7 +60,7 @@ class Thunderball_Service_User extends Thunderball_Service_Base
 			
 		if ($user)
 		{
-			if ($user->password == self::getPasswordHash($password, $username)) {
+			if ($userEntity->password == self::getPasswordHash($password, $username)) {
 				return $user;
 			}
 			throw new Exception(self::WRONG_PW);

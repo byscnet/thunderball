@@ -35,17 +35,24 @@ $( "#btnBack" ).button({icons: {primary: "ui-icon-triangle-1-w"}, text: true}).c
 		<p>
 		<?= $this->partial('project/_project-detail.phtml', array('project' => $this->project));?>
 		</p>
-		<p>
-			<button id="btnEditProject" ref-data="<?= $this->project->id?>">Bearbeiten</button>
-	
+		<?php 
+			if ($this->accountHelper()->isProjektleiter()
+			|| $this->accountHelper()->isAdmin()) {
+				echo '<p><button id="btnEditProject" ref-data="' . $this->project->id . '">Bearbeiten</button></p>';
+			}
+		?>
 	</div>
 </div>
 
 <div id="accStructure">
 	<h3>Projectstruktur</h3>
 	<div>
-		<p><button id="btnAddStructure" ref-data="<?= $this->project->id?>">Struktur hinzufügen</button>
-		</p>
+		<?php 
+			if ($this->accountHelper()->isProjektleiter()
+			|| $this->accountHelper()->isAdmin()) {
+				echo '<p><button id="btnAddStructure" ref-data="' . $this->project->id . '">Arbeitspaket hinzufügen</button></p>';
+			}
+		?>
 		<p>
 		<?= $this->partial('project/_structure.phtml', array('project' => $this->project));?>
 		</p>
@@ -55,11 +62,12 @@ $( "#btnBack" ).button({icons: {primary: "ui-icon-triangle-1-w"}, text: true}).c
 <div id="accMember">
 	<h3>Rollenträger</h3>
 	<div>
-		<p>
-			<button id="btnAddMember" ref-data="<?= $this->project->id?>">Hinzufügen</button>
-		
-		
-		<p>
+		<?php 
+			if ($this->accountHelper()->isProjektleiter()
+			|| $this->accountHelper()->isAdmin()) {
+				echo '<p><button id="btnAddMember" ref-data="' . $this->project->id . '">Rollenträger hinzufügen</button></p>';
+			}
+		?>
 		<?= $this->partial('project/_members.phtml', array('project' => $this->project, 'memberList' => $this->memberList));?>
 		</p>
 	</div>

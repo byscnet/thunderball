@@ -74,6 +74,7 @@ $( "#addHour" ).button({icons: {primary: "ui-icon-disk"}, text: true}).click(fun
 		}
 
 		updateHourInfo(packageId, projectId);
+		clearFieldsFunction();
 	});
 
 	
@@ -136,6 +137,11 @@ function updateHourInfo(packageId, projectId)
 		
 	});
 }
+
+clearFieldsFunction = function() {
+	$('#notice').val('');
+	$('#hours').val('');
+};
 
 </script>
 

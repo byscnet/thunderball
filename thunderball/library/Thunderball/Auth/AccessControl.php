@@ -16,7 +16,8 @@ class Thunderball_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
 	public function	preDispatch(Zend_Controller_Request_Abstract $request)
 	{
 		if ($this->_auth->hasIdentity() &&is_object($this->_auth->getIdentity())) {
-			$role = $this->_auth->getIdentity()->role;
+			$identity = $this->_auth->getIdentity();
+			$role = $identity->roleId;
 		} else {
 			$role = 'guest';
 		}
@@ -24,8 +25,7 @@ class Thunderball_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
 		$module = $request->getControllerName();
 		$action = $request->getActionName();
 
-		if (!$this->_acl->has($module))
-		{
+		if (!$this->_acl->has($module)) {
 			$resource = null;
 		}
 		if (!$this->_acl->isAllowed($role, $module, $action))
@@ -33,21 +33,15 @@ class Thunderball_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
 			if ($this->_auth->hasIdentity())
 			{
 				$request->setModuleName('default');
-				$request->setControllerName('error');
-				$request->setActionName('not-allowed');
-
+				$request->setControllerName('index');
+				$request->setActionName('index');
 			}
 			else
 			{
 				$request->setModuleName('default');
 				$request->setControllerName('index');
 				$request->setActionName('index');
-
 			}
-		}
-		else 
-		{
-		
 		}
 	}
 }

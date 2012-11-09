@@ -11,6 +11,13 @@ class Thunderball_Form_User extends Zend_Form
 
 	public function init()
 	{
+		$this->addElement('text', 'title', array(
+							'label' => 'Titel:',
+				          	'required' => false,
+				      		'filters' => array('StringTrim'),
+							'decorators' => $this->decorator
+		));
+		
 		$this->addElement('text', 'firstname', array(
 							'label' => 'Vorname:',
 				          	'required' => true,
@@ -61,6 +68,17 @@ class Thunderball_Form_User extends Zend_Form
 		$element->setDecorators($this->decorator);
 		$element->addMultiOption('0', 'Herr');
 		$element->addMultiOption('1', 'Frau');
+		$this->addElement($element);
+		
+		$roleService = new Thunderball_Service_Role();
+		$allRoles = $roleService->fetchAll();
+		$element = new Zend_Form_Element_Select('role');
+		$element->setLabel('Rolle:');
+		$element->setRequired(true);
+		$element->setDecorators($this->decorator);
+		foreach ($allRoles as $role) {
+			$element->addMultiOption($role->id, $role->name);
+		}
 		$this->addElement($element);
 	}
 }

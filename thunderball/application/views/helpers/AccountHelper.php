@@ -19,25 +19,40 @@ class Zend_View_Helper_AccountHelper extends Zend_View_Helper_Abstract
 
 	public function getUserId()
 	{
-		return 1;
-	}
-	
-	public function getUserFullName()
-	{
-		$userService = new Wendy_Service_UserService();
-		
 		$user = $this->getUser();
-/*
-		if($user->role == 'Bereichsleiter'){
-			$completeUserObject = $userService->getById($user->id);
+		return $user->id;
+	}
 
-			return $user->firstname . ' ' . $user->lastname . ' (' . $user->role . ': ' . $completeUserObject->business_segment->name . ') ';
-		}
+	public function isMitarbeiter()
+	{
+		return $this->isRole(Thunderball_Auth_Acl::ROLE_MITARBEITER);
+	}
 
-		else{
-			return $user->firstname . ' ' . $user->lastname . ' (' . $user->role . ') ';
-		}
-		*/
+	public function isProjektleiter()
+	{
+		return $this->isRole(Thunderball_Auth_Acl::ROLE_PROJEKTLEITER);
+	}
+
+	public function isAdmin()
+	{
+		return $this->isRole(Thunderball_Auth_Acl::ROLE_ADMIN);
+	}
+
+	public function isRole($role)
+	{
+		$user = $this->getUser();
+		return ($user->roleId == $role);
+	}
+
+	public function getSalutation()
+	{
+		$user = $this->getUser();
+		$html = array();
+		$html[] = 'Hallo';
+		$html[] = $user->firstname;
+		$html[] = $user->lastname;
+		$html[] = '(' . $user->role . ')';
+		return join(' ', $html);
 	}
 
 }

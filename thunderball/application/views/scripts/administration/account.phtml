@@ -1,1 +1,25 @@
 <?= $this->layoutHelper()->getHeadline('Meine Daten', array('btnSave' => 'Änderungen speichern')) ?>
+
+<script>
+$(function() {
+	$( "#btnSave" ).button({icons: {primary: "ui-icon-disk"}, text: true}).click(function(){
+		$('#myAccountForm').submit();
+	});
+});
+</script>
+
+<div class="content">
+	<form method="post" id="myAccountForm">
+		<table width="600">
+			<tr>
+				<td valign="top"><?= $this->form->hourly_rate ?>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><?= $this->form->hours_of_work_per_day ?>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</div>

@@ -96,8 +96,117 @@
 					<action>index</action>
 					<module>default</module>
 					<resource>admin-user</resource>
+					<pages>
+						<edit>
+							<label>Benutzer bearbeiten</label>
+							<controller>user</controller>
+							<action>edit</action>
+							<module>default</module>
+						</edit>
+						<new>
+							<label>Neuer Benutzer</label>
+							<controller>user</controller>
+							<action>new</action>
+							<module>default</module>
+						</new>
+					</pages>
 				</users>
+				<customer>
+					<label>Kunden</label>
+					<controller>customer</controller>
+					<action>index</action>
+					<module>default</module>
+					<resource>customer</resource>
+					<pages>
+						<edit>
+							<label>Kunden bearbeiten</label>
+							<controller>customer</controller>
+							<action>edit</action>
+							<module>default</module>
+						</edit>
+						<new>
+							<label>Neuer Kunde</label>
+							<controller>customer</controller>
+							<action>new</action>
+							<module>default</module>
+						</new>
+					</pages>
+				</customer>
 			</pages>
 		</administration>
+		<account>
+			<label>Account</label>
+			<controller>account</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>account</resource>
+			<visible>0</visible>
+			<pages>
+				<login>
+					<label>Anmelden</label>
+					<controller>account</controller>
+					<action>login</action>
+					<module>default</module>
+					<resource>account-login</resource>
+					<visible>0</visible>
+				</login>
+				<logout>
+					<label>Abmelden</label>
+					<controller>account</controller>
+					<action>logout</action>
+					<module>default</module>
+					<resource>account-logout</resource>
+					<visible>0</visible>
+				</logout>
+				<complete>
+					<label>Abgemeldet</label>
+					<controller>account</controller>
+					<action>logout-complete</action>
+					<module>default</module>
+					<resource>account-logout-complete</resource>
+					<visible>0</visible>
+				</complete>
+			</pages>
+		</account>
+		<project-ajax>
+			<label>Project-Ajax</label>
+			<controller>project-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>project-ajax</resource>
+			<visible>0</visible>
+		</project-ajax>
+		<hour-ajax>
+			<label>Hour-Ajax</label>
+			<controller>hour-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>hour-ajax</resource>
+			<visible>0</visible>
+		</hour-ajax>
+		<user-ajax>
+			<label>User-Ajax</label>
+			<controller>user-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>user-ajax</resource>
+			<visible>0</visible>
+		</user-ajax>
+		<customer-ajax>
+			<label>Customer-Ajax</label>
+			<controller>customer-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>customer-ajax</resource>
+			<visible>0</visible>
+		</customer-ajax>
+		<help>
+			<label>Hilfe</label>
+			<controller>index</controller>
+			<action>help</action>
+			<module>default</module>
+			<resource>help</resource>
+			<visible>0</visible>
+		</help>
 	</nav>
 </configdata>

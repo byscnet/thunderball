@@ -22,18 +22,18 @@ class Thunderball_Auth_Adapter implements Zend_Auth_Adapter_Interface
 		try {
 			$this->user = Thunderball_Service_User::authenticate($this->username, $this->password);
 			
-			if ($this->user->is_active != true ) { 
-				return $this->createResult(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, array(self::ACC_NOT_ACTIVE)); 
-			}
+			//if ($this->user->is_active != true ) { 
+			//	return $this->createResult(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, array(self::ACC_NOT_ACTIVE)); 
+			//}
 			
 			return $this->createResult(Zend_Auth_Result::SUCCESS);
 		} 
 		catch(Exception $e) {
-			if ($e->getMessage() == Wendy_Service_UserService::WRONG_PW) {
+			if ($e->getMessage() == Thunderball_Service_User::WRONG_PW) {
 				return $this->createResult(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, array(self::ACCESS_DENIED));
 			}
 			
-			if ($e->getMessage() == Wendy_Service_UserService::NOT_FOUND) {
+			if ($e->getMessage() == Thunderball_Service_User::NOT_FOUND) {
 				return $this->createResult(Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND, array(self::ACCESS_DENIED));
 			}
 		}

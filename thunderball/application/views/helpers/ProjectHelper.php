@@ -102,7 +102,7 @@ class Zend_View_Helper_ProjectHelper extends Zend_View_Helper_Abstract
 		$html = array();
 		$html[] = '<select id="' . $name . '">';
 
-		$roleService = new Thunderball_Service_Role();
+		$roleService = new Thunderball_Service_ProjectRole();
 		$allRoles = $roleService->fetchAll();
 		foreach ($allRoles as $role) {
 			$html[] = '<option value="' . $role->id . '">' . $role->name . '</option>';

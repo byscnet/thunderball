@@ -11,8 +11,20 @@ class Thunderball_Form_Hour extends Zend_Form
 
 	public function init()
 	{
-		$this->addElement(
-		$this->getSelectBox('project', new Thunderball_Service_Project(), 'Projekt:', true, 'name'));
+		$userId = Zend_Auth::getInstance()->getIdentity()->id;
+		$projectService = new Thunderball_Service_ProjectMember();
+		$all = $projectService->getByUserId($userId);
+		$element = new Zend_Form_Element_Select('project');
+		$element->setLabel('Projekt:');
+		$element->setRequired(true);
+		$element->setDecorators($this->decorator);
+		$element->addMultiOption('', 'Bitte wählen');
+		$element->setOptions(array('onchange' => 'projectOnChange(this.value)'));
+		foreach ($all as $entity) {
+			$element->addMultiOption($entity->id, $entity->name);
+		}
+		$this->addElement($element);
+		
 		
 		$element = new Zend_Form_Element_Select('package');
 		$element->setLabel('Arbeitspaket');

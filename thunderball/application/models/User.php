@@ -76,6 +76,12 @@ class Thunderball_Model_User
 	 */
     protected $hours_of_work_per_day;
     
+    /**
+     * @ManyToOne(targetEntity="Thunderball_Model_Role")
+     * Rolle
+     */
+    protected $role;
+    
 	/**
      *  Magische Funktion
      *  Setter

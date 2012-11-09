@@ -5,7 +5,7 @@ class ProjectAjaxController extends Zend_Controller_Action
 	private $projectService;
 	private $memberService;
 	private $userService;
-	private $roleService;
+	private $projectRoleService;
 	private $packageService;
 
 	public function init()
@@ -16,7 +16,7 @@ class ProjectAjaxController extends Zend_Controller_Action
 		$this->projectService = new Thunderball_Service_Project();
 		$this->memberService = new Thunderball_Service_ProjectMember();
 		$this->userService = new Thunderball_Service_User();
-		$this->roleService = new Thunderball_Service_Role();
+		$this->projectRoleService = new Thunderball_Service_ProjectRole();
 		$this->packageService = new Thunderball_Service_WorkingPackage();
 	}
 
@@ -99,7 +99,7 @@ class ProjectAjaxController extends Zend_Controller_Action
 				$member->since = new DateTime();
 				$member->user = $this->userService->getById($this->_getParam('userId'));
 				$member->project = $this->projectService->getById($this->_getParam('projectId'));
-				$member->role = $this->roleService->getById($this->_getParam('roleId'));
+				$member->role = $this->projectRoleService->getById($this->_getParam('roleId'));
 				$this->memberService->store($member);
 				break;
 
@@ -132,8 +132,10 @@ class ProjectAjaxController extends Zend_Controller_Action
 		foreach ($results as $aRow)
 		{
 			$options = array();
-			//$options[] = $this->view->layoutHelper()->getEditButton($aRow->id);
-			$options[] = $this->view->layoutHelper()->getDeleteButton($aRow->id);
+			if ($this->view->accountHelper()->isProjektleiter()
+			|| $this->view->accountHelper()->isAdmin()) {
+				$options[] = $this->view->layoutHelper()->getDeleteButton($aRow->id);
+			}
 			$row = array();
 			$row[] = $aRow->role->name;
 			$row[] = $this->userService->getCompleteName($aRow->user);
@@ -170,7 +172,10 @@ class ProjectAjaxController extends Zend_Controller_Action
 		foreach ($results as $aRow)
 		{
 			$options = array();
-			$options[] = $this->view->layoutHelper()->getEditButton($aRow->id);
+			if ($this->view->accountHelper()->isProjektleiter()
+			|| $this->view->accountHelper()->isAdmin()) {
+				$options[] = $this->view->layoutHelper()->getEditButton($aRow->id);
+			}
 			$options[] = $this->view->layoutHelper()->getDetailButton($aRow->id);
 			$row = array();
 			$row[] = $this->getColourPreview($aRow->colour);

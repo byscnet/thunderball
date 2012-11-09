@@ -64,6 +64,11 @@ class ProjectController extends Zend_Controller_Action
 
 	public function editAction()
 	{
+		$user = $this->view->accountHelper()->getUser();
+		if ($user->role == 'Mitarbeiter') {
+			return $this->redirect('project/list');
+		}
+		
 		if (!$this->_hasParam('id')) {
 			return $this->redirect('project/list');
 		}
@@ -82,6 +87,7 @@ class ProjectController extends Zend_Controller_Action
 
 			$values = $this->getRequest()->getParams();
 			$this->storeProject($project, $values);
+			return $this->redirect('project/list');
 		}
 
 		
@@ -128,6 +134,7 @@ class ProjectController extends Zend_Controller_Action
 		));
 
 		$this->view->form = $form;
+		$this->view->projectId = $project->id;
 	}
 
 	public function costAction()
