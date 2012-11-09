@@ -1,0 +1,35 @@
+<?= $this->layoutHelper()->getHeadline('Kunde bearbeiten', array('btnCancel' => 'Abbrechen', 'btnSave' => 'Speichern')) ?>
+
+<script>
+$(document).ready(function(){
+	
+	$('#btnSave').button({icons: {primary: "ui-icon-disk"}, text: true}).click(function(){
+		$('#editCustomerForm').submit();
+	});
+
+	$('#btnCancel').button({icons: {primary: "ui-icon-close"}, text: true}).click(function(){
+		window.location = baseUrl + "/customer/";
+	});
+
+	
+});
+</script>
+
+<div class="content">
+	<form method="post" id="editCustomerForm">
+		<table width="900">
+			<tr>
+				<td valign="top"><?= $this->form->company ?>
+				</td>
+				<td valign="top"><?= $this->form->name ?>
+				</td>
+				<td valign="top" rowspan="2"><?= $this->form->description ?>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><?= $this->form->new_company ?></td>
+			</tr>
+		</table>
+	</form>
+	<?= $this->layoutHelper()->getNotOptionalInfo() ?>
+</div>

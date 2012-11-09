@@ -1,0 +1,32 @@
+<?= $this->layoutHelper()->getHeadline($this->headline, array('btnBack' => 'Zurück')) ?>
+
+<script type="text/javascript">
+<!--
+$(function() {
+$( "#btnBack" ).button({icons: {primary: "ui-icon-triangle-1-w"}, text: true}).click(function(){
+	window.location = baseUrl + "/user";
+});
+});
+//-->
+</script>
+
+<table border="0" width="100%">
+<tr>
+<td class="header">Rolle:</td>
+<td><?= $this->user->role->name ?></td>
+<td><b>Bemerkung</b></td>
+</tr>
+<tr>
+<td class="header">E-Mail:</td>
+<td><?= $this->user->email ?></td>
+<td rowspan="2" valign="top"><?= $this->user->notice?></td>
+</tr>
+<tr>
+<td class="header">Stundensatz:</td>
+<td><?= $this->user->hourly_rate ?></td>
+</tr>
+<tr>
+<td class="header">Arbeitsstunden pro Tag:</td>
+<td><?= $this->user->hours_of_work_per_day ?></td>
+</tr>
+</table>

@@ -1,0 +1,30 @@
+<?= $this->layoutHelper()->getHeadline('Neuer Benutzer', array('btnCancel' => 'Abbrechen', 'btnSave' => 'Speichern')) ?>
+
+<script>
+$(document).ready(function(){
+	
+	$('#btnSave').button({icons: {primary: "ui-icon-disk"}, text: true}).click(function(){
+		$('#newUserForm').submit();
+	});
+
+	$('#btnCancel').button({icons: {primary: "ui-icon-close"}, text: true}).click(function(){
+		window.location = baseUrl + "/user/";
+	});
+});
+</script>
+
+<div class="content">
+	<form method="post" id="newUserForm">
+		<input type="hidden" id="userId" value="<?= $this->userId ?>">
+		<table width="900">
+			<tr>
+				<td valign="top"><?= $this->form->role ?> <?= $this->form->title ?>
+				<?= $this->form->salutation ?> <?= $this->form->firstname ?> <?= $this->form->lastname ?>
+				<?= $this->form->email ?>
+				</td>
+				<td valign="top"><?= $this->form->hourly_rate ?> <?= $this->form->hours_of_work_per_day ?>
+				<?= $this->form->notice ?>
+				</td>
+			</tr>
+		</table>
+	</form>
