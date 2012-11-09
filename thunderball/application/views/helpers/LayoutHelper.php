@@ -122,6 +122,16 @@ class Zend_View_Helper_LayoutHelper extends Zend_View_Helper_Abstract
 		return '<div style="float: right;">* Pflichtfelder</div>';
 	}
 
+	public function getNotification($title, $text)
+	{
+		$js = array();
+		$js[] = '$("#container").notify("create", {';
+	    $js[] = 'title: "' . $title . '",';
+	    $js[] = 'text: "' . $text . '"';
+		$js[] = '});';
+		return join('', $js);
+	}
+	
 	public function getButton($parameters, $jsFuncName, $cssClass, $label)
 	{
 		$func = $jsFuncName . '(';

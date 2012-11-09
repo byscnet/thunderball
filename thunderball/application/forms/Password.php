@@ -33,48 +33,24 @@
  *   Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 
-class Thunderball_Auth_Adapter implements Zend_Auth_Adapter_Interface
+class Thunderball_Form_Password extends Zend_Form
 {
-	const NOT_FOUND_MSG = 'Account nicht gefunden';
-	const BAD_PW_MSG = 'Falsches Passwort';
-	const ACCESS_DENIED = 'Keine Übereinstimmung der eingebenen E-Mail Adresse und/oder dem Passwort.';
-	const ACC_NOT_ACTIVE = 'Account ist nicht aktiv.';
-	
-	protected $user;
-	protected $username = "";
-	protected $password = "";
-	
-	public function __construct($username, $password)
+	private $decorator = array(
+    	'ViewHelper',
+    	'Description',
+    	'Errors',
+	array('HtmlTag', array('tag' => 'dd')),
+	array('Label', array('tag' => 'dt', 'requiredSuffix' => ' * ')),
+	);
+
+	public function init()
 	{
-		$this->username = $username;
-		$this->password = $password;
+		$this->addElement('text', 'email', array(
+							'label' => 'E-Mail:',
+				          	'required' => false,
+							'validator' => 'EmailAddress',
+				      		'filters' => array('StringTrim'),
+							'decorators' => $this->decorator
+		));
 	}
-	
-	public function authenticate()
-	{
-		try {
-			$this->user = Thunderball_Service_User::authenticate($this->username, $this->password);
-			
-			//if ($this->user->is_active != true ) { 
-			//	return $this->createResult(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, array(self::ACC_NOT_ACTIVE)); 
-			//}
-			
-			return $this->createResult(Zend_Auth_Result::SUCCESS);
-		} 
-		catch(Exception $e) {
-			if ($e->getMessage() == Thunderball_Service_User::WRONG_PW) {
-				return $this->createResult(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, array(self::ACCESS_DENIED));
-			}
-			
-			if ($e->getMessage() == Thunderball_Service_User::NOT_FOUND) {
-				return $this->createResult(Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND, array(self::ACCESS_DENIED));
-			}
-		}
-	}
-	
-	private function createResult($code, $messages = array())
-	{
-		return new Zend_Auth_Result($code, $this->user, $messages);
-	}
-	
 }

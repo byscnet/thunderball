@@ -1,12 +1,12 @@
 <?php
 /*
  *   Copyright 2012 by byscnet.de - OpenSource Solutions
- * 
+ *
  * 	 This file is part of Thunderball Project Payment.
  *
- *   Thunderball Project Payment is free software: you can redistribute 
- *   it and/or modify it under the terms of the GNU General Public License 
- *   as published by the Free Software Foundation, either version 3 of the 
+ *   Thunderball Project Payment is free software: you can redistribute
+ *   it and/or modify it under the terms of the GNU General Public License
+ *   as published by the Free Software Foundation, either version 3 of the
  *   License, or (at your option) any later version.
 
  *   Thunderball Project Payment is distributed in the hope that it will be useful,
@@ -51,6 +51,20 @@ class Thunderball_Service_User extends Thunderball_Service_Base
 		return join(' ', $text);
 	}
 
+	public function getSalutation($user)
+	{
+		$salutation = array('Herr', 'Frau');
+		$p = array('geehrter', 'geehrte');
+		$text = array();
+		$text[] = 'Sehr';
+		$text[] = $p[$user->salutation];
+		$text[] = $salutation[$user->salutation];
+		$text[] = $user->title;
+		$text[] = $user->lastname;
+
+		return join(' ', $text);
+	}
+
 	public function search($params)
 	{
 		$aColumns = array('d.firstname', 'd.lastname', );
@@ -65,6 +79,17 @@ class Thunderball_Service_User extends Thunderball_Service_Base
 		return $count->getSingleScalarResult();
 	}
 
+	public function getByEmail($email)
+	{
+		try {
+			$user = $this->_em->createQuery('SELECT u FROM Thunderball_Model_User u WHERE u.email = :email');
+			$user->setParameter('email', $email);
+			return $user->getSingleResult();
+		} catch (Exception $ex) {
+			return null;
+		}
+	}
+
 	public static function authenticate($username, $password)
 	{
 		try {
@@ -73,9 +98,9 @@ class Thunderball_Service_User extends Thunderball_Service_Base
 			$userEntity = $registry->entityManager->createQuery($dql)
 			->setParameter(1, $username)
 			->getSingleResult();
-				
+
 			$user = null;
-			
+
 			if ($userEntity != null) {
 				$user = new Thunderball_Common_User();
 				$user->id = $userEntity->id;

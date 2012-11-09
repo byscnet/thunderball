@@ -1,0 +1,20 @@
+<?= $this->layoutHelper()->getHeadline('Neues Passwort anfordern', array('btnCancel' => 'Abbrechen', 'btnSend' => 'Anfordern')) ?>
+
+<script type="text/javascript">
+$(function() {
+	$('#btnSend').button({icons: {primary: "ui-icon-mail-closed"}, text: true}).click(function(){
+		$('#newPasswordForm').submit();
+	});
+	$('#btnCancel').button({icons: {primary: "ui-icon-close"}, text: true}).click(function(){
+		window.location = baseUrl + '/index';
+	});
+});
+</script>
+
+<div class="content">
+<form method="post" id="newPasswordForm">
+<?= $this->form->email ?>
+
+</form>
+</div>
+

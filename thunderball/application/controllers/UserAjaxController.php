@@ -62,11 +62,11 @@ class UserAjaxController extends Zend_Controller_Action
 		$user->password = $this->userService->getPasswordHash($newPassword, $user->email);
 		$this->userService->store($user);
 
-		$mailer = new Thunderball_Mailer_Mail(Thunderball_Mailer_Mail::TYPE_ERROR);
+		$mailer = new Thunderball_Mailer_Mail(Thunderball_Mailer_Mail::TYPE_NEW_PASSWORD);
 		$mailer->addTo($user->email);
 		$mailer->addPlaceholder('password', $newPassword);
+		$mailer->addPlaceholder('salutation', $this->userService->getSalutation($user));
 		$mailer->send();
-		die(json_encode($newPassword));
 		die(json_encode($user->email));
 	}
 

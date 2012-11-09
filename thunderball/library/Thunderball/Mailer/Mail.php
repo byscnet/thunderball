@@ -38,7 +38,7 @@ class Thunderball_Mailer_Mail
 	const TYPE_ERROR = 'error.phtml';
 	const TYPE_NEW_PASSWORD = 'new-password.phtml';
 	
-	const ERROR_MAIL_TO = 'c.keck@lucidlogic.de';
+	const ERROR_MAIL_TO = 'support@byscnet.de';
 
 	private $bodyText;
 	private $bodyHtml;
@@ -53,7 +53,7 @@ class Thunderball_Mailer_Mail
 	function __construct($type)
 	{
 		$this->from = 'thunderball@byscnet.de';
-		$this->fromName = 'Thunderball';
+		$this->fromName = 'Thunderball Project Payment';
 		$this->placeholders = array();
 		$this->to = array();
 		switch ($type)
@@ -64,7 +64,7 @@ class Thunderball_Mailer_Mail
 			 * ErrorController eine Fehlermail an uns gesendet.
 			 */
 			case self::TYPE_ERROR:
-				$this->subject = 'Fehler auf Wendy aufgetreten!!';
+				$this->subject = 'Fehler auf Thunderball aufgetreten!!';
 				$this->template = self::TYPE_ERROR;
 				$this->to = array(self::ERROR_MAIL_TO);
 				$user = Zend_Auth::getInstance()->getIdentity();
@@ -77,7 +77,7 @@ class Thunderball_Mailer_Mail
 				break;
 
 			case self::TYPE_NEW_PASSWORD:
-				$this->subject = 'Neues Passwort für Thunderball';
+				$this->subject = 'Ihr neues Passwort für Thunderball Project Payment';
 				$this->template = self::TYPE_NEW_PASSWORD;
 				break;
 			

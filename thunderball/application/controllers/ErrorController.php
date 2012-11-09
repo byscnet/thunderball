@@ -59,7 +59,7 @@ class ErrorController extends Zend_Controller_Action
 				// application error
 				$this->getResponse()->setHttpResponseCode(500);
 				$this->view->message = 'Die Administratoren wurden bereits darüber informiert.';
-				echo $errors->exception;
+				//echo $errors->exception;
 				//$this->view->info  = $errors->exception;
 
 				break;

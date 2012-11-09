@@ -26,6 +26,10 @@ echo '<script type="text/javascript" src="' . $this->baseUrl() . '/datatables/js
 echo $this->headLink()->appendStylesheet($this->baseUrl() . '/colorpicker/jquery.colorpicker.css');
 echo '<script type="text/javascript" src="' . $this->baseUrl() . '/colorpicker/jquery.colorpicker.js"></script>';
 
+// notifier
+echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/jquery.notify.css');
+echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/jquery.notify.js"></script>';
+
 ?>
 
 <script type="text/javascript">
@@ -33,21 +37,34 @@ $(function() {
 	$('#logout-button').click(function(){
 		window.location = baseUrl + '/account/logout';
 	});
+
+	$("#container").notify();
+
+	<?= $this->message ?>
+	
 });
 </script>
 
 </head>
 <body>
+	
+	<div id="container" style="display: none">
+		<div id="basic-template">
+			<a class="ui-notify-cross ui-notify-close" href="#">x</a>
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+		</div>
+	</div>
 
 	<div id="wrapper">
 		<div id="container">
 
-			<div style="text-align: right; padding-top:5px;">
-				<?php 
-				if ($this->accountHelper()->userIsLoggedIn()) {
-					echo '<a href="' . $this->baseUrl() . '/index/help">Hilfe</a>';
-				} else { echo "&nbsp;"; }
-				?>
+			<div style="text-align: right; padding-top: 5px;">
+			<?php
+			if ($this->accountHelper()->userIsLoggedIn()) {
+				echo '<a href="' . $this->baseUrl() . '/index/help">Hilfe</a>';
+			} else { echo "&nbsp;"; }
+			?>
 			</div>
 
 			<div style="padding-bottom: 60px">
@@ -57,19 +74,16 @@ $(function() {
 				</div>
 				<div id="navbar">
 				<?= $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 0,)); ?>
-				<span id="loginLink">
-				<?php 
-				if ($this->accountHelper()->userIsLoggedIn()) {
-					echo '<a href="#" id="logout-button">Abmelden</a>';
-					echo '<span id="logged-in-user">';
-					echo $this->accountHelper()->getSalutation();
-					echo '&nbsp;&nbsp;|</span>';
-				} else {
-					echo '<a href="#login-box" class="login-window" id="login-button">Anmelden</a>';
-				}
-				?>
-				
-				</span>
+					<span id="loginLink"> <?php 
+					if ($this->accountHelper()->userIsLoggedIn()) {
+						echo '<a href="#" id="logout-button">Abmelden</a>';
+						echo '<span id="logged-in-user">';
+						echo $this->accountHelper()->getSalutation();
+						echo '&nbsp;&nbsp;|</span>';
+					} else {
+						echo '<a href="#login-box" class="login-window" id="login-button">Anmelden</a>';
+					}
+					?> </span>
 				</div>
 				<div id="subnavbar">
 				<?= $this->navigation()->menu()->renderMenu(null, array('minDepth' => 1, 'maxDepth' => 1, 'onlyActiveBranch' => true, 'renderParents' => false)); ?>
@@ -88,26 +102,31 @@ $(function() {
 	<div id="footer">
 		Copyright &copy;
 		<?=date('Y');?>
-		<a href="http://www.byscnet.de/" target="_new"> byscnet.de - OpenSource Solutions</a>
+		<a href="http://www.byscnet.de/" target="_new"> byscnet.de -
+			OpenSource Solutions</a>
 	</div>
 	<div id="login-box" class="login-popup">
-        <a href="#" class="close"><img src="<?= $this->baseUrl() ?>/img/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
-          <form method="post" name="loginForm" class="signin" action="<?= $this->baseUrl() ?>/account/login">
-                <fieldset class="textbox">
-            	<label class="username">
-                <span>Username or email</span>
-                <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
-                </label>
-                <label class="password">
-                <span>Password</span>
-                <input id="password" name="password" value="" type="password" placeholder="Password">
-                </label>
-                <button class="submit button" type="button" onclick="document.loginForm.submit()">Sign in</button>
-                <p>
-                <a class="forgot" href="#">Forgot your password?</a>
-                </p>        
-                </fieldset>
-          </form>
-</div>
+		<a href="#" class="close"><img
+			src="<?= $this->baseUrl() ?>/img/close_pop.png" class="btn_close"
+			title="Close Window" alt="Close" /> </a>
+		<form method="post" name="loginForm" class="signin"
+			action="<?= $this->baseUrl() ?>/account/login">
+			<fieldset class="textbox">
+				<label class="username"> <span>E-Mail:</span> <input id="username"
+					name="username" value="" type="text" autocomplete="on"
+					placeholder="E-Mail"> </label> <label class="password"> <span>Passwort:</span>
+					<input id="password" name="password" value="" type="password"
+					placeholder="Passwort"> </label>
+				<button class="submit button" type="button"
+					onclick="document.loginForm.submit()">Anmelden</button>
+				<p>
+					<a class="forgot" href="<?= $this->baseUrl() ?>/account/lost-pwd">Haben
+						Sie Ihr Passwort vergessen?</a>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+
+
 </body>
 </html>

@@ -109,6 +109,12 @@
 							<action>new</action>
 							<module>default</module>
 						</new>
+						<show>
+							<label>Benutzer anzeigen</label>
+							<controller>user</controller>
+							<action>show</action>
+							<module>default</module>
+						</show>
 					</pages>
 				</users>
 				<customer>
@@ -187,6 +193,14 @@
 					<resource>account-logout-complete</resource>
 					<visible>0</visible>
 				</complete>
+				<lost>
+					<label>Passwort vergessen</label>
+					<controller>account</controller>
+					<action>lost-pwd</action>
+					<module>default</module>
+					<resource>account-lost-pwd</resource>
+					<visible>0</visible>
+				</lost>
 			</pages>
 		</account>
 		<project-ajax>

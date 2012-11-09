@@ -71,6 +71,7 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->addResource(new Zend_Acl_Resource('account-logout'));
 		$this->addResource(new Zend_Acl_Resource('account-logout-complete'));
 		$this->addResource(new Zend_Acl_Resource('logout-complete'));
+		$this->addResource(new Zend_Acl_Resource('account-lost-pwd'));
 			
 		$this->addResource(new Zend_Acl_Resource('user'));
 		$this->addResource(new Zend_Acl_Resource('role'));
@@ -93,8 +94,9 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->allow('guest', 'startpage');
 		$this->allow('guest', 'error');
 		$this->allow('guest', 'index', array('index'));
-		$this->allow('guest', 'account', array('login', 'logout-complete'));
+		$this->allow('guest', 'account', array('login', 'logout-complete', 'lost-pwd'));
 		$this->allow('guest', 'logout-complete');
+		$this->allow('guest', 'account-lost-pwd');
 
 		//Mitarbeiter
 		$this->allow(self::ROLE_MITARBEITER, 'account', array('logout'));

@@ -79,6 +79,43 @@ class AccountController extends Zend_Controller_Action
 		return $this->render('logout');
 	}
 
+	public function lostPwdAction()
+	{
+		$form = new Thunderball_Form_Password();
+		$this->view->form = $form;
+		
+		if ($this->getRequest()->isPost())
+		{
+			if (!$this->_hasParam('email')
+			|| !$form->isValid($_POST)) {
+				$this->view->form = $form;
+				return $this->render('lost-pwd');
+			}	
+			
+			$email = $this->_getParam('email');
+			$userService = new Thunderball_Service_User();
+			$user = $userService->getByEmail($email);
+			
+			if ($user == null) {
+				return $this->render('lost-pwd');
+			}
+			
+			$newPassword = $userService->generatePassword();
+			$user->password = $userService->getPasswordHash($newPassword, $email);
+			$userService->store($user);
+			
+			$mailer = new Thunderball_Mailer_Mail(Thunderball_Mailer_Mail::TYPE_NEW_PASSWORD);
+			$mailer->addTo($user->email);
+			$mailer->addPlaceholder('password', $newPassword);
+			$mailer->addPlaceholder('salutation', $userService->getSalutation($user));
+			$mailer->send();
+			
+			
+			$this->view->message = $this->view->layoutHelper()->getNotification('Neues Passwort', 'Ihnen wurde ein neues Passwort per E-Mail zugesendet. Bitte überprüfen Sie Ihr Postfach.');
+			return $this->forward('index');
+		}
+	}
+	
 	private function startSession($username, $password, $rememberMe)
 	{
 		$adapter = new Thunderball_Auth_Adapter($username, $password);
