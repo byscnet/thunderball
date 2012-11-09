@@ -40,14 +40,17 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->addResource(new Zend_Acl_Resource('logout-complete'));
 			
 		$this->addResource(new Zend_Acl_Resource('user'));
-		
+		$this->addResource(new Zend_Acl_Resource('role'));
 		$this->addResource(new Zend_Acl_Resource('customer'));
+		$this->addResource(new Zend_Acl_Resource('status'));
 		
 		$this->addResource(new Zend_Acl_Resource('project-ajax'));
 		$this->addResource(new Zend_Acl_Resource('hour-ajax'));
 		$this->addResource(new Zend_Acl_Resource('administration-ajax'));
 		$this->addResource(new Zend_Acl_Resource('user-ajax'));
 		$this->addResource(new Zend_Acl_Resource('customer-ajax'));
+		$this->addResource(new Zend_Acl_Resource('role-ajax'));
+		$this->addResource(new Zend_Acl_Resource('status-ajax'));
 		
 		$this->deny(null, null);
 
@@ -79,6 +82,10 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->allow(self::ROLE_PROJEKTLEITER, 'project-edit');
 		$this->allow(self::ROLE_PROJEKTLEITER, 'customer');
 		$this->allow(self::ROLE_PROJEKTLEITER, 'customer-ajax');
+		$this->allow(self::ROLE_PROJEKTLEITER, 'role');
+		$this->allow(self::ROLE_PROJEKTLEITER, 'role-ajax');
+		$this->allow(self::ROLE_PROJEKTLEITER, 'status');
+		$this->allow(self::ROLE_PROJEKTLEITER, 'status-ajax');
 		
 		//Admin
 		$this->allow(self::ROLE_ADMIN, 'administration-ajax');

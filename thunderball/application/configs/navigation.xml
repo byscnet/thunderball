@@ -132,6 +132,20 @@
 						</new>
 					</pages>
 				</customer>
+				<role>
+					<label>Rollen</label>
+					<controller>role</controller>
+					<action>index</action>
+					<module>default</module>
+					<resource>role</resource>
+				</role>
+				<status>
+					<label>Status</label>
+					<controller>status</controller>
+					<action>index</action>
+					<module>default</module>
+					<resource>status</resource>
+				</status>
 			</pages>
 		</administration>
 		<account>
@@ -200,6 +214,22 @@
 			<resource>customer-ajax</resource>
 			<visible>0</visible>
 		</customer-ajax>
+		<role-ajax>
+			<label>Role-Ajax</label>
+			<controller>role-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>role-ajax</resource>
+			<visible>0</visible>
+		</role-ajax>
+		<status-ajax>
+			<label>Status-Ajax</label>
+			<controller>status-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>status-ajax</resource>
+			<visible>0</visible>
+		</status-ajax>
 		<help>
 			<label>Hilfe</label>
 			<controller>index</controller>

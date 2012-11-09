@@ -1,0 +1,151 @@
+<?= $this->layoutHelper()->getHeadline('Statusverwaltung', array('btnNew' => 'Neuen Status anlegen')) ?>
+
+<script>
+
+$(document).ready(function(){
+	oTable = $('#statuslist').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"bProcessing": true,
+		"sDom": '<"H"lfr>t<"F"ip>',
+		"bServerSide": true,
+		"bStateSave": true,
+		"sAjaxSource": baseUrl + "/status-ajax/list",
+		"aoColumns" : [null, {"bSortable": false}],
+		"fnDrawCallback": function () {  
+			$( ".btnEdit" ).button({icons: {primary: "ui-icon-wrench"}, text: false}); 
+			$( ".btnDelete" ).button({icons: {primary: "ui-icon-trash"}, text: false});
+			$(".btnSave").button({icons : {primary : "ui-icon-disk"}, text : false});
+			$(".btnSave").hide();
+			
+			$(".btnCancel").button({icons : {primary : "ui-icon-close"}, text : false});
+			$(".btnCancel").hide();
+			},
+		"oLanguage": {
+			"sLengthMenu": "_MENU_ pro Seite anzeigen",
+			"sZeroRecords": "Keinen Status gefunden",
+			"sInfo": "Zeige _START_ bis _END_ von insgesammt _TOTAL_ Stati",
+			"sInfoEmpty": "Es werden keine Stati angezeigt",
+			"sInfoFiltered": "(gefiltert von insgesammt _MAX_ Stati)",
+			"sSearch": "Suche:"}
+	});
+
+	$('#btnNew').button({icons: {primary: "ui-icon-plus"}, text: true}).click(function(){
+		$( "#dialog-form" ).dialog( "open" );
+	});
+
+	$( "#dialog-form" ).dialog({
+	    autoOpen: false,
+	    height: 250,
+	    width: 350,
+	    modal: true,
+	    buttons: {
+	        "Hinzufügen": function() {
+	            var params = { 
+	                    item: $('#newItem').val()
+	            };
+
+	            post('status-ajax', 'add', params, function(){oTable.fnReloadAjax();});
+	            $( this ).dialog( "close" );
+	        },
+	        'Abbrechen': function() {
+	            $( this ).dialog( "close" );
+	        }
+	    }
+	});
+});
+
+function editItem(itemId) 
+{
+	// text ausblenden
+	$('span[name="item_view"][rel-data="' + itemId + '"]').hide();
+	
+	// input felder einblenden
+	$('input[name="item_edit"][rel-data="' + itemId + '"]').show();
+	
+	// buttons umswitchen
+	$(".btnEdit[data-rel='" + itemId + "']").hide();
+	$(".btnDelete[data-rel='" + itemId + "']").hide();
+	$(".btnSave[data-rel='" + itemId + "']").show();
+	$(".btnCancel[data-rel='" + itemId + "']").show();
+}
+
+function saveItem(itemId)
+{
+	var params = {
+		id: itemId,
+		item: $('input[name="item_edit"][rel-data="' + itemId + '"][rel-type="item"]').val()
+	};
+	
+	post('status-ajax', 'save', params, function() {
+		updateRowValues(params);
+		viewModeForRow(itemId);
+	});
+}
+
+function cancelItem(itemId)
+{
+	viewModeForRow(itemId);
+}
+
+function deleteItem(itemId)
+{
+	if (confirm('Wollen Sie diesen Status wirklich entfernen?'))
+	{
+		post('status-ajax', 'delete', {id: itemId}, function(data) {
+			if (data == 1) {
+				oTable.fnReloadAjax();
+			} else {
+				alert('Beim Löschen des Status ist ein Fehler aufgetreten. Der Status ist womöglich bereits in Verwendung.');
+			}
+		});
+	}
+}
+
+function updateRowValues(params)
+{	
+	$('span[name="item_view"][rel-data="' + params.id + '"][rel-type="item"]').html(params.item);
+}
+
+function viewModeForRow(itemId)
+{
+	// text einblenden
+	$('span[name="item_view"][rel-data="' + itemId + '"]').show();
+	
+	// input felder ausblenden
+	$('input[name="item_edit"][rel-data="' + itemId + '"]').hide();
+	
+	// buttons umswitchen
+	$(".btnEdit[data-rel='" + itemId + "']").show();
+	$(".btnDelete[data-rel='" + itemId + "']").show();
+	$(".btnSave[data-rel='" + itemId + "']").hide();
+	$(".btnCancel[data-rel='" + itemId + "']").hide();
+}
+
+
+
+</script>
+
+<div id="dialog-form" title="Status hinzufügen">
+	<form>
+		<fieldset>
+			<label for="name">Bezeichnung:</label>
+			<input type="text" id="newItem">
+		</fieldset>
+	</form>
+</div>
+
+<table id="statuslist" cellpadding="0" cellspacing="0" border="0"
+	class="display" style="width: 100%">
+	<thead>
+		<tr>
+			<th>Status</th>
+			<th width="150">Optionen</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="dataTables_empty">Loading data from server</td>
+		</tr>
+	</tbody>
+</table>

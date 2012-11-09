@@ -17,7 +17,7 @@ class Thunderball_Service_Base
 			foreach ($searchInColumns as $column) {
 				$search[] = $column . " LIKE '%" . $params['sSearch'] . "%'";
 			}
-			
+				
 			$qb->where(join($search, ' OR '));
 		}
 
@@ -59,6 +59,15 @@ class Thunderball_Service_Base
 		->from($this->domain, 'd');
 
 		return $qb;
+	}
+
+	public function delete($id)
+	{
+		$dql = 'DELETE \\' . $this->domain . ' e WHERE e.id = :itemId';
+		$query = $this->_em->createQuery($dql);
+		$query->setParameter('itemId', $id);
+
+		return $query->getResult();
 	}
 
 	public function store($entity)
