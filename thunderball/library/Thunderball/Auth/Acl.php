@@ -43,6 +43,7 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->addResource(new Zend_Acl_Resource('role'));
 		$this->addResource(new Zend_Acl_Resource('customer'));
 		$this->addResource(new Zend_Acl_Resource('status'));
+		$this->addResource(new Zend_Acl_Resource('category'));
 		
 		$this->addResource(new Zend_Acl_Resource('project-ajax'));
 		$this->addResource(new Zend_Acl_Resource('hour-ajax'));
@@ -51,6 +52,7 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->addResource(new Zend_Acl_Resource('customer-ajax'));
 		$this->addResource(new Zend_Acl_Resource('role-ajax'));
 		$this->addResource(new Zend_Acl_Resource('status-ajax'));
+		$this->addResource(new Zend_Acl_Resource('category-ajax'));
 		
 		$this->deny(null, null);
 
@@ -86,6 +88,8 @@ class Thunderball_Auth_Acl extends Zend_Acl
 		$this->allow(self::ROLE_PROJEKTLEITER, 'role-ajax');
 		$this->allow(self::ROLE_PROJEKTLEITER, 'status');
 		$this->allow(self::ROLE_PROJEKTLEITER, 'status-ajax');
+		$this->allow(self::ROLE_PROJEKTLEITER, 'category');
+		$this->allow(self::ROLE_PROJEKTLEITER, 'category-ajax');
 		
 		//Admin
 		$this->allow(self::ROLE_ADMIN, 'administration-ajax');

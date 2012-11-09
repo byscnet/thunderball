@@ -68,7 +68,7 @@
 					<resource>hour-new</resource>
 				</collect>
 				<report>
-					<label>Report</label>
+					<label>Auswertung</label>
 					<controller>hour</controller>
 					<action>report</action>
 					<module>default</module>
@@ -146,6 +146,13 @@
 					<module>default</module>
 					<resource>status</resource>
 				</status>
+				<category>
+					<label>Kategorien</label>
+					<controller>category</controller>
+					<action>index</action>
+					<module>default</module>
+					<resource>category</resource>
+				</category>
 			</pages>
 		</administration>
 		<account>
@@ -230,6 +237,14 @@
 			<resource>status-ajax</resource>
 			<visible>0</visible>
 		</status-ajax>
+		<category-ajax>
+			<label>Kategory-Ajax</label>
+			<controller>category-ajax</controller>
+			<action>index</action>
+			<module>default</module>
+			<resource>category-ajax</resource>
+			<visible>0</visible>
+		</category-ajax>
 		<help>
 			<label>Hilfe</label>
 			<controller>index</controller>

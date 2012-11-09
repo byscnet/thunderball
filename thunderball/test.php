@@ -1,2 +1,3 @@
 <?
-echo md5('online' . 'christian.keck@byscnet.de');
+echo md5('admin' . 'admin@thunderball');
+echo "\n";
